@@ -1,0 +1,23 @@
+class Solution {
+    int transitionPoint(int arr[], int n) {
+        // code here
+        int left = 0;
+        int right = n - 1;
+        int transitionIndex = -1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == 1) {
+                // If the current element is 1, move left to find the first 1
+                transitionIndex = mid;
+                right = mid - 1;
+            } else {
+                // If the current element is 0, move right
+                left = mid + 1;
+            }
+        }
+
+        return transitionIndex;
+    }
+}
