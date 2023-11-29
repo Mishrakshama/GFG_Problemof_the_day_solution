@@ -1,0 +1,30 @@
+class Solution {
+    public int[] topK(int[] nums, int k) {
+        // Code here
+         Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>(
+            (a, b) -> {
+                int freqA = frequencyMap.get(a);
+                int freqB = frequencyMap.get(b);
+                if (freqA != freqB) {
+                    return Integer.compare(freqB, freqA); // Compare by frequency (descending order)
+                } else {
+                    return Integer.compare(b, a); // If frequencies are equal, compare by value (descending order)
+                }
+            }
+        );
+        for (int num : frequencyMap.keySet()) {
+            pq.offer(num);
+        }
+        int[] result = new int[k];
+        int i = 0;
+        while (i < k) {
+            result[i] = pq.poll();
+            i++;
+        }
+        return result;
+    }
+}
