@@ -1,0 +1,28 @@
+class Solution {
+    int minDist(int a[], int n, int x, int y) {
+        // code here
+        int minX = -1; // Index of the last occurrence of x
+        int minY = -1; // Index of the last occurrence of y
+        int minDistance = Integer.MAX_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            if (a[i] == x) {
+                if (minY != -1) {
+                    minDistance = Math.min(minDistance, i - minY);
+                }
+                minX = i;
+            } else if (a[i] == y) {
+                if (minX != -1) {
+                    minDistance = Math.min(minDistance, i - minX);
+                }
+                minY = i;
+            }
+        }
+
+        if (minX == -1 || minY == -1) {
+            return -1; // Either x or y does not exist in the array
+        }
+
+        return minDistance;
+    }
+}
